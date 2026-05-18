@@ -2,7 +2,7 @@ package com.saxena.employee_service.controller;
 
 import com.saxena.employee_service.entity.Employee;
 import com.saxena.employee_service.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
 @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/api")
+@AllArgsConstructor
 public class EmployeeController {
 
-    @Autowired
     EmployeeService employeeService;
 
     @GetMapping("/employees")
@@ -28,6 +28,11 @@ public class EmployeeController {
     @PostMapping("/employee")
     public Employee addEmployee(@RequestBody Employee employee) {
         return employeeService.saveEmployee(employee);
+    }
+
+    @PutMapping("/employee")
+    public Employee updateEmployee(@RequestBody Employee employee) {
+        return employeeService.updateEmployee(employee);
     }
 
     @DeleteMapping("employee")
