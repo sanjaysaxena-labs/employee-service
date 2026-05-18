@@ -2,15 +2,15 @@ package com.saxena.employee_service.service;
 
 import com.saxena.employee_service.entity.Employee;
 import com.saxena.employee_service.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class EmployeeService {
 
-    @Autowired
     private EmployeeRepository employeeRepository;
 
     public Employee getEmployeeById(Long id) {
@@ -29,4 +29,11 @@ public class EmployeeService {
         employeeRepository.delete(employee);
     }
 
+    public Employee updateEmployee(Employee employee) {
+        Employee existingEmployee = employeeRepository.findById(employee.getId()).orElse(new Employee());
+        existingEmployee.setName(employee.getName());
+        existingEmployee.setEmail(employee.getEmail());
+        existingEmployee.setDepartment(employee.getDepartment());
+        return employeeRepository.save(existingEmployee);
+    }
 }
